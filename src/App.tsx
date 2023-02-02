@@ -89,7 +89,7 @@ function App() {
               );
             })}
 
-          <img src="/public/floorPlan2.png" />
+          <img src="/FaceTracker/public/floorPlan2.png" />
         </div>
       </div>
       <div className="info">
