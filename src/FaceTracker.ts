@@ -20,7 +20,6 @@ export interface People {
 const MODEL_URL = '/FaceTracker/models';
 let faceDrawings = [];
 let counter = 1;
-console.log('>>>>>>>');
 let faceMatcher: any;
 
 let people: People = {};
