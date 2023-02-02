@@ -10,8 +10,7 @@ body {
 
 canvas {
   border: 6px #138ba7 solid;
-  min-width: 1200px;
-  min-height: 700px;
+  min-width: calc(100vw / 2);
 }
 
 h2 {
@@ -34,6 +33,7 @@ h2 {
 }
 
 .data-list {
+  display: flex;
   padding: 12px;
   border-bottom: 1px white solid;
   border-top: 1px white solid;
@@ -73,6 +73,9 @@ h2 {
 }
 
 @media (max-width: 1600px) {
+  body {
+    margin: 0;
+  }
   .top-row {
     flex-direction: column;
   }

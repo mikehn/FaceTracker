@@ -29,7 +29,12 @@ export default function sketch(p: any) {
 
   let capture: any = null;
   let faceDrawings: any[] = [];
-
+  const M_W = 1280;
+  const M_H = 720;
+  let vWidth = 1280;
+  let vHeight = 720;
+  let fw: number = 1;
+  let fh: number = 1;
   // function showFaceDetectionData(data: any) {
   //   faceDrawings = data;
   // }
@@ -73,6 +78,7 @@ export default function sketch(p: any) {
     let isUpdated = false;
     let midX = res.detection.box._x + res.detection.box._width / 2;
     let midY = res.detection.box._y + res.detection.box._height / 2;
+
     let currentPerson: Person;
     if (!faceMatcher) {
       faceMatcher = new faceApi.FaceMatcher([
@@ -146,8 +152,19 @@ export default function sketch(p: any) {
     await faceApi.loadFaceExpressionModel(MODEL_URL);
 
     console.log('Loaded');
+    let width = Math.min(p.windowWidth / 2.2, 1280);
+    if (p.windowWidth < 1600) {
+      width = p.windowWidth;
+    }
+    let height = Math.round(0.5625 * width);
+    vWidth = width;
+    vHeight = height;
 
-    p.createCanvas(1280, 720);
+    fw = width / M_W;
+    fh = height / M_H;
+    console.log('SIZE', width, height);
+    console.log('FRAC', fw, fh);
+    p.createCanvas(width, height);
     const constraints = {
       video: {
         mandatory: {
@@ -171,7 +188,7 @@ export default function sketch(p: any) {
       return;
     }
     p.background(255);
-    p.image(capture, 0, 0);
+    p.image(capture, 0, 0, vWidth, vHeight);
     p.fill(0, 0, 0, 0);
     ///////////////////
     Object.values(people).forEach((p) => (p.isOn = false));
@@ -187,8 +204,10 @@ export default function sketch(p: any) {
 
         p.strokeWeight(2);
         p.textSize(25);
-        const textX = drawing.detection.box._x + drawing.detection.box._width;
-        const textY = drawing.detection.box._y + drawing.detection.box._height;
+        const textX =
+          (drawing.detection.box._x + drawing.detection.box._width) * fw;
+        const textY =
+          (drawing.detection.box._y + drawing.detection.box._height) * fw;
 
         const name = `Name: ${current.match}`;
         const nWidth = p.textWidth(name);
@@ -227,10 +246,10 @@ export default function sketch(p: any) {
         p.strokeWeight(4);
         p.stroke('rgb(100%,100%,100%)');
         p.rect(
-          drawing.detection.box._x,
-          drawing.detection.box._y,
-          drawing.detection.box._width,
-          drawing.detection.box._height
+          drawing.detection.box._x * fw,
+          drawing.detection.box._y * fw,
+          drawing.detection.box._width * fw,
+          drawing.detection.box._height * fw
         );
         current.data = { age: drawing.age.toFixed(0), mood: expression_value };
       }
