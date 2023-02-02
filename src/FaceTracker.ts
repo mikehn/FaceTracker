@@ -17,7 +17,7 @@ export interface People {
   [label: string]: Person;
 }
 
-const MODEL_URL = '/models';
+const MODEL_URL = '/FaceTracker/models';
 let faceDrawings = [];
 let counter = 1;
 console.log('>>>>>>>');
