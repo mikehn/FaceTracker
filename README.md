@@ -7,4 +7,4 @@ Serves a webpage that uses camera to detect faces, assigns age mood and tracks p
 
 1. clone repository
 2. run `npm install`
-3. run `npm start`
+3. run `npm run dev`
